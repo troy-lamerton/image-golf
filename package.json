@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www",
+    "test": "tape test/*.js | tap-spec"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
@@ -13,5 +14,9 @@
     "hbs": "~4.0.0",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.0"
   }
 }
