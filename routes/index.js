@@ -42,6 +42,7 @@ function renderPage (err, res) {
   if (err) {
     return err
   }
+  //asdfasdfs
   var fourImages = res.imagesArray.slice(1,5)
   res.render('home', {"mainImage": res.imagesArray[0], "images": fourImages, "score":5})
 }
