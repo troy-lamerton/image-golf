@@ -1,11 +1,8 @@
 var path = require('path');
 var express = require('express');
 var router = express.Router();
-
 var callAPI = require('../lib/call-api')
-
 var dbPath = path.join(__dirname, '../golf.sqlite3')
-
 var knex = require('knex')({
   client: 'sqlite3',
   connection: {
@@ -37,16 +34,16 @@ router.get('/', function(req, res, next) {
   res.redirect('/home');
 });
 
-router.post('/home', function(req, res, next) {
-  res.redirect('/home');
-});
+// router.post('/home', function(req, res, next) {
+//   res.redirect('/home');
+// });
 
 function renderPage (err, res) {
   if (err) {
-    return
+    return err
   }
-  console.log(res.imagesArray)
-  res.render('home', {"mainImage": res.imagesArray[0], "images": res.imagesArray, "score":5})
+  var fourImages = res.imagesArray.slice(1,5)
+  res.render('home', {"mainImage": res.imagesArray[0], "images": fourImages, "score":5})
 }
 
 module.exports = router;
