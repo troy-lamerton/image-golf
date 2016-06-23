@@ -11,30 +11,43 @@ var knex = require('knex')({
   useNullAsDefault: true
 })
 
+var globalAnswerObj = {
+  answer: '',
+  activeImageIndex: 0,
+  mainImage: '',
+  images: []
+}
+// server stores the 5 images for the current answer being guessed
+var globalImages = []
+
 /* GET home page. */
-router.get('/home', function(req, res, next) {
-  knex('answers').pluck('answer').then(function (answers) {
+router.get('/', function(req, res, next) {
+  knex('answers')
+  .pluck('answer')
+  .then(function (answers) {
     var length = answers.length
     var randomId = Math.ceil(Math.random()*answers.length)
-
-    knex('answers').where('id', randomId)
-      .then(function (randomAnswerObj) {
-        console.log('obj-------------:', randomAnswerObj[0].answer)
-        // callback(null, randomAnswerObj[0].answer)
-        callAPI(randomAnswerObj[0].answer, res, renderPage)
-      })
-      .catch(function (e) {
-        return e
-      })
+    knex('answers')
+    .where('id', randomId)
+    .then(function (randomAnswerObj) {
+      console.log('obj-------------:', randomAnswerObj[0].answer)
+      globalAnswerObj.answer = randomAnswerObj[0].answer
+      callAPI(randomAnswerObj[0].answer, res, renderPage)
+    })
+    .catch(function (e) {
+      return e
+    })
   })
 });
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.redirect('/home');
+router.get('/home', function(req, res, next) {
+  res.render('home', globalAnswerObj);
 });
 
-router.post('/home', function(req, res, next) {
+router.post('/', function(req, res, next) {
+  // globalAnswerObj.mainImage = 'lalalalalal'
+  globalAnswerObj.activeImageIndex++
   res.redirect('/home');
 });
 
@@ -42,9 +55,12 @@ function renderPage (err, res) {
   if (err) {
     return err
   }
-  //asdfasdfs
   var fourImages = res.imagesArray.slice(1,5)
-  res.render('home', {"mainImage": res.imagesArray[0], "images": fourImages, "score":5})
+
+  globalAnswerObj.images = fourImages
+  console.log("SDD", globalAnswerObj)
+  // globalAnswerObj.mainImage = glob
+  res.render('home', {"mainImage": res.imagesArray[globalAnswerObj.activeImageIndex], "images": fourImages, "score":0})
 }
 
 module.exports = router;
