@@ -2,17 +2,27 @@
 	border: solid red 1px;
 }
 
+#bgd{
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-image:url("../images/golf_course.jpg");
+    background-size: cover;
+    opacity:.6;
+}
+
 body {
-	background-image: url("../images/golf_course.jpg");
-	background-size: cover;
-	background-repeat: no-repeat;
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px;
+  font-family:'Kaushan Script', cursive;
 }
 
 #container {
     position: absolute;
     width: 90%;
+    height:100%;
     margin: 0;
     /*padding: 2% 5% 5% 5%;*/
 }
@@ -51,8 +61,10 @@ h1{
 }
 
 #previous {
-	display: flex
-	flex-direction: row;
+	display: flex;
+	flex-wrap: wrap;
+  position: absolute;
+
 }
 
 /*#previous img{
