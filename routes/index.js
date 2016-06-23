@@ -1,6 +1,7 @@
 var path = require('path');
 var express = require('express');
 var router = express.Router();
+
 var callAPI = require('../lib/call-api')
 
 var dbPath = path.join(__dirname, '../golf.sqlite3')
@@ -14,7 +15,7 @@ var knex = require('knex')({
 })
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/home', function(req, res, next) {
   knex('answers').pluck('answer').then(function (answers) {
     var length = answers.length
     var randomId = Math.ceil(Math.random()*answers.length)
@@ -29,7 +30,15 @@ router.get('/', function(req, res, next) {
         return e
       })
   })
-  // res.render('home', { title: 'Express' });
+});
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.redirect('/home');
+});
+
+router.post('/home', function(req, res, next) {
+  res.redirect('/home');
 });
 
 function renderPage (err, res) {
@@ -37,7 +46,7 @@ function renderPage (err, res) {
     return
   }
   console.log(res.imagesArray)
-  res.render('home', {title: 'Callback working!'})
+  res.render('home', {"mainImage": res.imagesArray[0], "images": res.imagesArray, "score":5})
 }
 
 module.exports = router;

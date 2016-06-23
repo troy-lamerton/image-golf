@@ -1,2 +1,29 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div id="container">
+
+	<div id="heading">
+		<h1>Image Golf</h1>
+	</div>
+
+	<div id="mainImage">
+		<img src = "{{this.mainImage}}">
+	</div>
+
+	<div class="score">
+	  {{this.score}}
+	</div>
+
+	<form class="next_guess" id="next_guess" action="/home" accept-charset="UTF-8" method="post">
+	  <p>
+	    <input placeholder="Enter your guess" type="text" name="guess" id="next_guess" value="{{this.name}}"/><br><br>
+	    <input type="submit" name="commit" value="Go"/>
+	  </p>
+	</form>
+
+	<div id = "previous">
+		<div id = "prevImages">
+		  {{#each images}}
+		    <img src = "{{this.image}}">
+		  {{/each}}
+	  </div>
+	</div>
+</div>
