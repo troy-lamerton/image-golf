@@ -34,9 +34,9 @@ router.get('/', function(req, res, next) {
   res.redirect('/home');
 });
 
-// router.post('/home', function(req, res, next) {
-//   res.redirect('/home');
-// });
+router.post('/home', function(req, res, next) {
+  res.redirect('/home');
+});
 
 function renderPage (err, res) {
   if (err) {
