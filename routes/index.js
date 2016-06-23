@@ -42,7 +42,6 @@ router.get('/home', function(req, res, next) {
 });
 
 router.post('/home', function(req, res, next) {
-  console.log('')
   globalAnswerObj.score++
 
   //compare answer to guess
@@ -50,7 +49,12 @@ router.post('/home', function(req, res, next) {
   if (guess === globalAnswerObj.answer) {
     // correct, reset globalAnwerObj
     console.log('---correct')
-    globalAnswerObj = {}
+    globalAnswerObj = {  score: 0,
+      answer: '',
+      activeImageIndex: 0,
+      seenImages: []  // what is sent to fill four boxes}
+    }
+    globalImages = []
     res.redirect('/home')
   } else {
     // wrong, new image
