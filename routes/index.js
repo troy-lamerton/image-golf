@@ -1,26 +1,52 @@
+var path = require('path');
 var express = require('express');
 var router = express.Router();
-var obj = {
-  "mainImage":"http://www.abc.net.au/news/image/6473316-3x2-940x627.jpg",
-  "images": [
-  {"id": 1, "image": "https://managewp.com/wp-content/uploads/2012/07/spam.jpg"},
-  {"id": 2, "image": "http://www.motherearthnews.com/~/media/Images/MEN/Editorial/Articles/Magazine%20Articles/2006/04-01/Backyard%20Fish%20Farming/Tilapia.jpgg"},
-  {"id": 3, "image": "http://www.overbitespictures.com/wp-content/uploads/2012/09/CS_9.3.12_labor_day_OPP.jpg"},
-  {"id": 4, "image": "https://i.ytimg.com/vi/IDEaqFo7-a8/hqdefault.jpg"}
-  ],
-  "score": 5
-}
+
+var callAPI = require('../lib/call-api')
+
+var dbPath = path.join(__dirname, '../golf.sqlite3')
+
+var knex = require('knex')({
+  client: 'sqlite3',
+  connection: {
+    filename: dbPath
+  },
+  useNullAsDefault: true
+})
+
+/* GET home page. */
+router.get('/home', function(req, res, next) {
+  knex('answers').pluck('answer').then(function (answers) {
+    var length = answers.length
+    var randomId = Math.ceil(Math.random()*answers.length)
+
+    knex('answers').where('id', randomId)
+      .then(function (randomAnswerObj) {
+        console.log('obj-------------:', randomAnswerObj[0].answer)
+        // callback(null, randomAnswerObj[0].answer)
+        callAPI(randomAnswerObj[0].answer, res, renderPage)
+      })
+      .catch(function (e) {
+        return e
+      })
+  })
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.redirect('/home');
 });
 
-router.get('/home', function(req, res, next) {
-  res.render('index', obj);
-});
-
 router.post('/home', function(req, res, next) {
   res.redirect('/home');
 });
+
+function renderPage (err, res) {
+  if (err) {
+    return
+  }
+  console.log(res.imagesArray)
+  res.render('home', {"mainImage": res.imagesArray[0], "images": res.imagesArray, "score":5})
+}
 
 module.exports = router;
