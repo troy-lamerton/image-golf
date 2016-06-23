@@ -6,3 +6,19 @@ body {
 a {
   color: #00B7FF;
 }
+
+h1{
+  text-align: center;
+}
+
+img{
+  max-height: 100px;
+  max-width: 100px;
+
+}
+
+.mainImage{
+  align: center;
+  max-height: 300px;
+  max-width: 300px;
+}
