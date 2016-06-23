@@ -12,16 +12,17 @@ var knex = require('knex')({
 })
 
 var globalAnswerObj = {
+  score: 0,
   answer: '',
   activeImageIndex: 0,
-  mainImage: '',
-  images: []
+  seenImages: []  // what is sent to fill four boxes
 }
 // server stores the 5 images for the current answer being guessed
-var globalImages = []
+var globalImages = []  // all five images
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/home', function(req, res, next) {
+  console.log('ROUTER GET')
   knex('answers')
   .pluck('answer')
   .then(function (answers) {
@@ -30,9 +31,9 @@ router.get('/', function(req, res, next) {
     knex('answers')
     .where('id', randomId)
     .then(function (randomAnswerObj) {
-      console.log('obj-------------:', randomAnswerObj[0].answer)
+      console.log('new answer-------------:', randomAnswerObj[0].answer)
       globalAnswerObj.answer = randomAnswerObj[0].answer
-      callAPI(randomAnswerObj[0].answer, res, renderPage)
+      callAPI(randomAnswerObj[0].answer, res, renderNewAnswer)
     })
     .catch(function (e) {
       return e
@@ -40,27 +41,48 @@ router.get('/', function(req, res, next) {
   })
 });
 
-/* GET home page. */
-router.get('/home', function(req, res, next) {
-  res.render('home', globalAnswerObj);
+router.post('/home', function(req, res, next) {
+  console.log('')
+  globalAnswerObj.score++
+
+  //compare answer to guess
+  var guess = req.body.guess.toLowerCase()
+  if (guess === globalAnswerObj.answer) {
+    // correct, reset globalAnwerObj
+    console.log('---correct')
+    globalAnswerObj = {}
+    res.redirect('/home')
+  } else {
+    // wrong, new image
+    console.log('---wrong')
+    //handle if this is the 5th wrong guess
+    if (globalAnswerObj.activeImageIndex === 4) {
+      // you failed --- what do we wana do here?
+      console.log('WRONG x 5')
+      res.redirect('/home')
+    }
+    globalAnswerObj.seenImages.push(globalImages[globalAnswerObj.activeImageIndex])
+    globalAnswerObj.activeImageIndex++
+    renderPageAfterGuess(null, res)
+  }
+
+  console.log(globalAnswerObj)
 });
 
-router.post('/', function(req, res, next) {
-  // globalAnswerObj.mainImage = 'lalalalalal'
-  globalAnswerObj.activeImageIndex++
-  res.redirect('/home');
-});
+function renderPageAfterGuess (err, res) {
+  res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score})
+}
 
-function renderPage (err, res) {
+function renderNewAnswer (err, res) {
   if (err) {
     return err
   }
-  var fourImages = res.imagesArray.slice(1,5)
+  //res.imagesArray = ['www', 'www'.....]
+  globalImages = res.imagesArray
 
-  globalAnswerObj.images = fourImages
+  globalAnswerObj.seenImages = []
   console.log("SDD", globalAnswerObj)
-  // globalAnswerObj.mainImage = glob
-  res.render('home', {"mainImage": res.imagesArray[globalAnswerObj.activeImageIndex], "images": fourImages, "score":0})
+  res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score})
 }
 
 module.exports = router;
