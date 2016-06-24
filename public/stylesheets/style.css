@@ -1,3 +1,6 @@
+/** {
+  border: solid red 1px;
+}*/
 
 #bgd{
     position:absolute;
@@ -13,30 +16,31 @@
 
 body {
   margin: 0;
-  font-family:'Kaushan Script', cursive;
+  /*font-family:'Kaushan Script', cursive;*/
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 #heading {
-  margin-top: 5%;
-  margin-bottom: 4%;
+  margin-top: 2%;
+  margin-bottom: 2%;
   font-size: 20px;
   display: flex;
 }
 
 #title{
-  font-size: 40px;
+  font-size: 5rem;
   width: 33%;
   text-align:center;
 }
 
 #h1{
-   width: 33%;
+   width: 34%;
 }
 
 #h3{
   width: 33%;
   text-align: right;
-  vertical-align: text-bottom;
+  padding-top: 3rem;
 }
 
 #container {
@@ -53,6 +57,9 @@ h1{
   text-align: center;
 }
 
+#result{
+
+}
 
 #mainImage img{
   margin-left: auto;
@@ -61,10 +68,17 @@ h1{
   width: 350px;
   max-height: 350px;
   display: block;
+  border-radius: 10px;
+  border: white solid 10px;
 }
 
 #score{
   text-align: center;
+  font-size: 2rem;
+}
+
+#score h2 {
+  margin: 1% 0;
 }
 
 #previous {
@@ -117,4 +131,8 @@ h1{
 
 #next_guess{
   text-align: center;
+}
+
+.next-guess p {
+  margin: 0;
 }
