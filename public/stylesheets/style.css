@@ -18,6 +18,7 @@ body {
   margin: 0;
   /*font-family:'Kaushan Script', cursive;*/
   font-family: 'Josefin Sans', sans-serif;
+  text-shadow: 2px 2px 8px #666
 }
 
 #heading {
@@ -49,6 +50,11 @@ body {
     margin: auto;
 }
 
+#main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 a {
   color: #00B7FF;
 }
@@ -58,7 +64,12 @@ h1{
 }
 
 #result{
+  text-align: center;
+  font-size: 10em;
+}
 
+#mainImage {
+  width: 40%;
 }
 
 #mainImage img{
@@ -70,15 +81,42 @@ h1{
   display: block;
   border-radius: 10px;
   border: white solid 10px;
+  box-shadow: 2px 2px 15px #666
 }
 
 #score{
   text-align: center;
   font-size: 2rem;
+  width: 30%;
+  padding-top: 10%;
+  /*padding-bottom: 50%;*/
 }
 
 #score h2 {
   margin: 1% 0;
+}
+
+#pastScores {
+  width: 30%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#pastScores h2 {
+  margin: 0;
+}
+
+#psHeading {
+  font-size: 2rem;
+  display: flex;
+  width: 99%;
+}
+
+.answer {
+  display: flex;
+  width: 49%;
+  text-align: center;
+  font-size: 2em;
 }
 
 #previous {
@@ -127,10 +165,12 @@ h1{
   border: 1px solid #696969;
   border-radius: 25px;
   background: white;
+  box-shadow: 2px 2px 15px #666
 }
 
 #next_guess{
   text-align: center;
+  margin-top: 2%
 }
 
 .next-guess p {
