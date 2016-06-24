@@ -71,7 +71,14 @@ router.post('/home', function(req, res, next) {
     if (globalAnswerObj.activeImageIndex === 4) {
       // you failed --- what do we wana do here?
       console.log('WRONG x 5')
-      res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score, finished: true, result: 'You lose, the answer was "' + globalAnswerObj.answer + '"'})
+      res.render('home', {
+        "mainImage": globalImages[globalAnswerObj.activeImageIndex],
+        "images": globalAnswerObj.seenImages,
+        "score": globalAnswerObj.score,
+        "finished": true,
+        "result": 'YOU LOSE',
+        "answer": globalAnswerObj.answer,
+        "correctGuesses": globalCorrectGuesses})
       console.log(globalAnswerObj)
       globalCorrectGuesses = []
       resetGlobalObj(true)
@@ -84,7 +91,13 @@ router.post('/home', function(req, res, next) {
 });
 
 function renderPageAfterGuess (err, res) {
-  res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score})
+  res.render('home', {
+    "mainImage": globalImages[globalAnswerObj.activeImageIndex],
+    "images": globalAnswerObj.seenImages,
+    "score": globalAnswerObj.score,
+    "correctGuesses": globalCorrectGuesses,
+    "result": '',
+    "finished": false})
 }
 
 function renderNewAnswer (err, res) {
@@ -96,7 +109,13 @@ function renderNewAnswer (err, res) {
 
   globalAnswerObj.seenImages = []
   console.log("SDD", globalAnswerObj)
-  res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score})
+  res.render('home', {
+    "mainImage": globalImages[globalAnswerObj.activeImageIndex],
+    "images": globalAnswerObj.seenImages,
+    "score": globalAnswerObj.score,
+    "correctGuesses": globalCorrectGuesses,
+    "result": '',
+    "finished": false})
 }
 
 function resetGlobalObj (resetScore) {
