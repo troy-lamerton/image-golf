@@ -41,6 +41,10 @@ router.get('/home', function(req, res, next) {
   })
 });
 
+router.get('/', function(req, res) {
+  res.redirect('/home')
+})
+
 router.post('/home', function(req, res, next) {
   globalAnswerObj.score++
 
