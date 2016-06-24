@@ -29,14 +29,20 @@
 	</div>
 {{/if}}
 
-
-
+	{{#if finished}}
+	<form class = "next_guess" id="next_guess" action="/home" accept-charset="UTF-8" method="post">
+			<p>
+				<input type="submit" name="submit" value="Play Again" id="go"/>
+		  </p>
+	</form>
+	{{else}}
 	<form class = "next_guess" id="next_guess" action="/home" accept-charset="UTF-8" method="post">
 	  <p class = "next_guess">
 	    <input placeholder="Enter your guess" type="text" name="guess" id="guess_box" value="{{this.name}}"/><br><br>
 	    <input type="submit" name="submit" value="Go" id="go"/>
 	  </p>
 	</form>
+	{{/if}}
 
 
 	<div id = "previous">
