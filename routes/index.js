@@ -52,8 +52,8 @@ router.post('/home', function(req, res, next) {
   if (guess === globalAnswerObj.answer) {
     // correct, reset globalAnwerObj
     console.log('---correct')
-    resetGlobalObj()
     res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score, finished: true, result: 'You won, the answer was "' + globalAnswerObj + '"'})
+    resetGlobalObj()
     return
   } else {
     // wrong, new image
@@ -61,9 +61,9 @@ router.post('/home', function(req, res, next) {
     //handle if this is the 5th wrong guess
     if (globalAnswerObj.activeImageIndex === 4) {
       // you failed --- what do we wana do here?
-      resetGlobalObj()
       console.log('WRONG x 5')
       res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score, finished: true, result: 'You lose, the answer was "' + globalAnswerObj + '"'})
+      resetGlobalObj()
       return
     }
     globalAnswerObj.seenImages.push(globalImages[globalAnswerObj.activeImageIndex])
