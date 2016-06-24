@@ -96,8 +96,27 @@ h1{
   margin: 1% 0;
 }
 
-#pastScore {
+#pastScores {
   width: 30%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#pastScores h2 {
+  margin: 0;
+}
+
+#psHeading {
+  font-size: 2rem;
+  display: flex;
+  width: 99%;
+}
+
+.answer {
+  display: flex;
+  width: 49%;
+  text-align: center;
+  font-size: 2em;
 }
 
 #previous {

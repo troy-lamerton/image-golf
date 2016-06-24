@@ -19,7 +19,12 @@
 			<img src = "{{this.mainImage}}">
 		</div>
 		<div id="pastScores">
-			<!-- past scores in here -->
+			<div id="psHeading"><h2>Your correct guesses:</h2></div>
+			{{#each correctGuesses}}
+				<div class = "answer">
+		    	{{this}}
+		  	</div>
+			{{/each}}
 		</div>
 	</div>
 {{/if}}
