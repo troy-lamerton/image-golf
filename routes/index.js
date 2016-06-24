@@ -41,6 +41,10 @@ router.get('/home', function(req, res, next) {
   })
 });
 
+router.get('/', function(req, res) {
+  res.redirect('/home')
+})
+
 router.post('/home', function(req, res, next) {
   globalAnswerObj.score++
 
@@ -49,21 +53,19 @@ router.post('/home', function(req, res, next) {
   if (guess === globalAnswerObj.answer) {
     // correct, reset globalAnwerObj
     console.log('---correct')
-    globalAnswerObj = {  score: 0,
-      answer: '',
-      activeImageIndex: 0,
-      seenImages: []  // what is sent to fill four boxes}
-    }
-    globalImages = []
+    resetGlobalObj()
     res.redirect('/home')
+    return
   } else {
     // wrong, new image
     console.log('---wrong')
     //handle if this is the 5th wrong guess
     if (globalAnswerObj.activeImageIndex === 4) {
       // you failed --- what do we wana do here?
+      resetGlobalObj()
       console.log('WRONG x 5')
       res.redirect('/home')
+      return
     }
     globalAnswerObj.seenImages.push(globalImages[globalAnswerObj.activeImageIndex])
     globalAnswerObj.activeImageIndex++
@@ -87,6 +89,15 @@ function renderNewAnswer (err, res) {
   globalAnswerObj.seenImages = []
   console.log("SDD", globalAnswerObj)
   res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score})
+}
+
+function resetGlobalObj () {
+  globalAnswerObj = {  score: 0,
+  answer: '',
+  activeImageIndex: 0,
+  seenImages: []  // what is sent to fill four boxes}
+  }
+  globalImages = []
 }
 
 module.exports = router;
