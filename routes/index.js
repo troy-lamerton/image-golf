@@ -91,7 +91,13 @@ router.post('/home', function(req, res, next) {
 });
 
 function renderPageAfterGuess (err, res) {
-  res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score})
+  res.render('home', {
+    "mainImage": globalImages[globalAnswerObj.activeImageIndex],
+    "images": globalAnswerObj.seenImages,
+    "score": globalAnswerObj.score,
+    "correctGuesses": globalCorrectGuesses,
+    "result": '',
+    "finished": false})
 }
 
 function renderNewAnswer (err, res) {
@@ -103,7 +109,13 @@ function renderNewAnswer (err, res) {
 
   globalAnswerObj.seenImages = []
   console.log("SDD", globalAnswerObj)
-  res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score})
+  res.render('home', {
+    "mainImage": globalImages[globalAnswerObj.activeImageIndex],
+    "images": globalAnswerObj.seenImages,
+    "score": globalAnswerObj.score,
+    "correctGuesses": globalCorrectGuesses,
+    "result": '',
+    "finished": false})
 }
 
 function resetGlobalObj (resetScore) {
