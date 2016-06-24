@@ -14,7 +14,18 @@ exports.seed = function(knex, Promise) {
         knex('answers').insert({id: 7, answer: 'boat'}),
         knex('answers').insert({id: 8, answer: 'car'}),
         knex('answers').insert({id: 9, answer: 'cat'}),
-        knex('answers').insert({id: 10, answer: 'dog'})
+        knex('answers').insert({id: 10, answer: 'mud'}),
+        knex('answers').insert({id: 11, answer: 'skull'}),
+        knex('answers').insert({id: 12, answer: 'mouse'}),
+        knex('answers').insert({id: 13, answer: 'snow'}),
+        knex('answers').insert({id: 14, answer: 'love'}),
+        knex('answers').insert({id: 15, answer: 'hate'}),
+        knex('answers').insert({id: 16, answer: 'happy'}),
+        knex('answers').insert({id: 17, answer: 'confused'}),
+        knex('answers').insert({id: 18, answer: 'table'}),
+        knex('answers').insert({id: 19, answer: 'rapper'}),
+        knex('answers').insert({id: 20, answer: 'red peak'}),
+        knex('answers').insert({id: 21, answer: 'code'})
       ]);
     });
 };

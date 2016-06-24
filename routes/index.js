@@ -15,13 +15,16 @@ var globalAnswerObj = {
   score: 0,
   answer: '',
   activeImageIndex: 0,
-  seenImages: []  // what is sent to fill four boxes
+  seenImages: [],  // what is sent to fill four boxes
+  finished: false,
+  result: ''
 }
 // server stores the 5 images for the current answer being guessed
 var globalImages = []  // all five images
 
 /* GET home page. */
 router.get('/home', function(req, res, next) {
+  resetGlobalObj()
   console.log('ROUTER GET')
   knex('answers')
   .pluck('answer')
@@ -41,10 +44,6 @@ router.get('/home', function(req, res, next) {
   })
 });
 
-router.get('/', function(req, res) {
-  res.redirect('/home')
-})
-
 router.post('/home', function(req, res, next) {
   globalAnswerObj.score++
 
@@ -54,7 +53,7 @@ router.post('/home', function(req, res, next) {
     // correct, reset globalAnwerObj
     console.log('---correct')
     resetGlobalObj()
-    res.redirect('/home')
+    res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score, finished: true, result: 'You won, the answer was "' + globalAnswerObj + '"'})
     return
   } else {
     // wrong, new image
@@ -64,7 +63,7 @@ router.post('/home', function(req, res, next) {
       // you failed --- what do we wana do here?
       resetGlobalObj()
       console.log('WRONG x 5')
-      res.redirect('/home')
+      res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score, finished: true, result: 'You lose, the answer was "' + globalAnswerObj + '"'})
       return
     }
     globalAnswerObj.seenImages.push(globalImages[globalAnswerObj.activeImageIndex])
@@ -92,12 +91,19 @@ function renderNewAnswer (err, res) {
 }
 
 function resetGlobalObj () {
-  globalAnswerObj = {  score: 0,
-  answer: '',
-  activeImageIndex: 0,
-  seenImages: []  // what is sent to fill four boxes}
+  globalAnswerObj = {
+    score: 0,
+    answer: '',
+    activeImageIndex: 0,
+    seenImages: [],  // what is sent to fill four boxes}
+    finished: false,
+    result: ''
   }
   globalImages = []
 }
+
+router.get('/', function(req, res) {
+  res.redirect('/home')
+})
 
 module.exports = router;
