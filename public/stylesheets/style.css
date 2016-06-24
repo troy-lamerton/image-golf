@@ -1,36 +1,48 @@
-* {
-	border: solid red 1px;
+
+#bgd{
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-image:url("../images/golf_course.jpg");
+    background-size: cover;
+    opacity:.6;
+    z-index: -1;
 }
 
 body {
-	background-image: url("../images/golf_course.jpg");
-	background-size: cover;
-	background-repeat: no-repeat;
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  font-family:'Kaushan Script', cursive;
+}
+
+#heading {
+  margin-top: 5%;
+  margin-bottom: 4%;
+  font-size: 20px;
+  display: flex;
+}
+
+#title{
+  font-size: 40px;
+  width: 33%;
+  text-align:center;
+}
+
+#h1{
+   width: 33%;
+}
+
+#h3{
+  width: 33%;
+  text-align: right;
+  vertical-align: text-bottom;
 }
 
 #container {
-    position: absolute;
     width: 90%;
-    margin: 0;
-    /*padding: 2% 5% 5% 5%;*/
-}
-
-#mainImage {
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
-}
-
-#prevImages {
-
-}
-
-#prevImages img {
-	height: 100px;
-	width: auto;
-	margin: 0 1rem;
+    height:100%;
+    margin: auto;
 }
 
 a {
@@ -45,18 +57,64 @@ h1{
 #mainImage img{
   margin-left: auto;
 	margin-right: auto;
-  max-height: 300px;
-  max-width: 300px;
+  height: 350px;
+  width: 350px;
+  max-height: 350px;
   display: block;
 }
 
-#previous {
-	display: flex
-	flex-direction: row;
+#score{
+  text-align: center;
 }
 
-/*#previous img{
+#previous {
+	display: flex;
+	flex-wrap: wrap;
+  position: absolute;
+  bottom: 7%;
+  margin: auto;
+  width: 90%;
+}
 
-	max-height: 100px;
-  max-width: 100px;
-}*/
+#prevImages {
+  width:24.5%;
+  text-align: center;
+/*  border: 1px solid white;
+  border-radius: 25px;*/
+
+}
+
+#prevImages img {
+  height: 150px;
+  width: 150px;
+  margin: 0 1rem;
+  border-radius: 100%;
+  border: white solid 5px;
+}
+
+
+#guess_box {
+  width: 50%;
+  height: 2rem;
+  margin: auto;
+  text-align: center;
+  font-size: 1.2rem;
+  opacity: 0.6;
+  border: 5px solid white;
+  border-radius: 10px;
+}
+
+#go{
+  width: 15%;
+  height: 2rem;
+  margin: auto;
+  text-align: center;
+  font-size: 1rem;
+  border: 1px solid #696969;
+  border-radius: 25px;
+  background: white;
+}
+
+#next_guess{
+  text-align: center;
+}
