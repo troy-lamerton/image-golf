@@ -1,29 +1,38 @@
-* {
-	border: solid red 1px;
+
+#bgd{
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-image:url("../images/golf_course.jpg");
+    background-size: cover;
+    opacity:.6;
+    z-index: -1;
 }
 
 body {
-	background-image: url("../images/golf_course.jpg");
-	background-size: cover;
-	background-repeat: no-repeat;
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  font-family:'Kaushan Script', cursive;
+}
+
+#heading {
+  margin-top: 5%;
+  margin-bottom: 4%;
 }
 
 #container {
-    position: absolute;
+    /*position: absolute;*/
     width: 90%;
-    margin: 0;
+    height:100%;
+    margin: auto;
     /*padding: 2% 5% 5% 5%;*/
 }
 
-#mainImage {
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
-}
-
 #prevImages {
+  width:24.5%;
+  text-align: center;
+  border: 1px solid white;
 
 }
 
@@ -45,18 +54,47 @@ h1{
 #mainImage img{
   margin-left: auto;
 	margin-right: auto;
-  max-height: 300px;
-  max-width: 300px;
+  height: 400px;
+  width: 400px;
   display: block;
 }
 
-#previous {
-	display: flex
-	flex-direction: row;
+#score{
+  text-align: center;
 }
 
-/*#previous img{
+#previous {
+	display: flex;
+	flex-wrap: wrap;
+  position: absolute;
+  bottom: 10%;
+  margin: auto;
+  width: 90%;
+  /*background: "http://www.clipartkid.com/images/44/film-reel-picture-frame-clip-art-at-clker-com-vector-clip-art-online-Z2KYoO-clipart.png";*/
 
-	max-height: 100px;
-  max-width: 100px;
-}*/
+}
+
+#guess_box {
+  width: 50%;
+  height: 2rem;
+  margin: auto;
+  text-align: center;
+  font-size: 1.2rem;
+  opacity: 0.6;
+  border: 5px solid white;
+  border-radius: 10px;
+}
+
+#go{
+  width: 15%;
+  height: 2rem;
+  margin: auto;
+  text-align: center;
+  font-size: 1rem;
+  border-top: 1px solid #fafafa;
+  background: #375973;
+}
+
+#next_guess{
+  text-align: center;
+}

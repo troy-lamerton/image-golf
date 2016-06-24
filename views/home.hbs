@@ -1,29 +1,36 @@
-<div id="container">
+<div id = "bgd">
+</div>
+
+<div id = "container">
 
 	<div id="heading">
-		<h1>Image Golf</h1>
+		<h3>Welcome to...</h3>
+		<h1>Image Golf!</h1>
+		<h3>All the fun of real golf without the swearing!</h3>
 	</div>
 
 	<div id="mainImage">
 		<img src = "{{this.mainImage}}">
 	</div>
 
-	<div class="score">
-	  {{this.score}}
+	<div id="score">
+	  <h2> Your Score is: {{this.score}} </h2>
 	</div>
 
-	<form class="next_guess" id="next_guess" action="/home" accept-charset="UTF-8" method="post">
-	  <p>
-	    <input placeholder="Enter your guess" type="text" name="guess" id="next_guess" value="{{this.name}}"/><br><br>
-	    <input type="submit" name="commit" value="Go"/>
+	<form class = "next_guess" id="next_guess" action="/home" accept-charset="UTF-8" method="post">
+	  <p class = "next_guess">
+	    <input placeholder="Enter your guess" type="text" name="guess" id="guess_box" value="{{this.name}}"/><br><br>
+	    <input type="submit" name="submit" value="Go" id="go"/>
 	  </p>
 	</form>
 
 	<div id = "previous">
-		<div id = "prevImages">
-		  {{#each images}}
+		{{#each images}}
+		 	<div id = "prevImages">
 		    <img src = "{{this}}">
-		  {{/each}}
-	  </div>
+		  </div>
+		{{/each}}
 	</div>
+
 </div>
+
