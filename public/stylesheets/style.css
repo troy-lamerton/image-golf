@@ -19,27 +19,30 @@ body {
 #heading {
   margin-top: 5%;
   margin-bottom: 4%;
+  font-size: 20px;
+  display: flex;
+}
+
+#title{
+  font-size: 40px;
+  width: 33%;
+  text-align:center;
+}
+
+#h1{
+   width: 33%;
+}
+
+#h3{
+  width: 33%;
+  text-align: right;
+  vertical-align: text-bottom;
 }
 
 #container {
-    /*position: absolute;*/
     width: 90%;
     height:100%;
     margin: auto;
-    /*padding: 2% 5% 5% 5%;*/
-}
-
-#prevImages {
-  width:24.5%;
-  text-align: center;
-  border: 1px solid white;
-
-}
-
-#prevImages img {
-	height: 100px;
-	width: auto;
-	margin: 0 1rem;
 }
 
 a {
@@ -54,8 +57,9 @@ h1{
 #mainImage img{
   margin-left: auto;
 	margin-right: auto;
-  height: 400px;
-  width: 400px;
+  height: 350px;
+  width: 350px;
+  max-height: 350px;
   display: block;
 }
 
@@ -67,12 +71,27 @@ h1{
 	display: flex;
 	flex-wrap: wrap;
   position: absolute;
-  bottom: 10%;
+  bottom: 7%;
   margin: auto;
   width: 90%;
-  /*background: "http://www.clipartkid.com/images/44/film-reel-picture-frame-clip-art-at-clker-com-vector-clip-art-online-Z2KYoO-clipart.png";*/
+}
+
+#prevImages {
+  width:24.5%;
+  text-align: center;
+/*  border: 1px solid white;
+  border-radius: 25px;*/
 
 }
+
+#prevImages img {
+  height: 150px;
+  width: 150px;
+  margin: 0 1rem;
+  border-radius: 100%;
+  border: white solid 5px;
+}
+
 
 #guess_box {
   width: 50%;
@@ -91,8 +110,9 @@ h1{
   margin: auto;
   text-align: center;
   font-size: 1rem;
-  border-top: 1px solid #fafafa;
-  background: #375973;
+  border: 1px solid #696969;
+  border-radius: 25px;
+  background: white;
 }
 
 #next_guess{
