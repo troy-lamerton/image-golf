@@ -11,6 +11,8 @@ var knex = require('knex')({
   useNullAsDefault: true
 })
 
+var globalCorrectGuesses = []
+
 var globalAnswerObj = {
   score: 0,
   answer: '',
@@ -24,8 +26,7 @@ var globalImages = []  // all five images
 
 /* GET home page. */
 router.get('/home', function(req, res, next) {
-  resetGlobalObj()
-  console.log('ROUTER GET')
+  resetGlobalObj(false)
   knex('answers')
   .pluck('answer')
   .then(function (answers) {
@@ -34,7 +35,6 @@ router.get('/home', function(req, res, next) {
     knex('answers')
     .where('id', randomId)
     .then(function (randomAnswerObj) {
-      console.log('new answer-------------:', randomAnswerObj[0].answer)
       globalAnswerObj.answer = randomAnswerObj[0].answer
       callAPI(randomAnswerObj[0].answer, res, renderNewAnswer)
     })
@@ -52,26 +52,35 @@ router.post('/home', function(req, res, next) {
   if (guess === globalAnswerObj.answer) {
     // correct, reset globalAnwerObj
     console.log('---correct')
-    res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score, finished: true, result: 'You won, the answer was "' + globalAnswerObj + '"'})
-    resetGlobalObj()
-    return
-  } else {
+    globalCorrectGuesses.push(globalAnswerObj.answer)
+    /*res.render('home',
+      {"mainImage": globalImages[globalAnswerObj.activeImageIndex],
+       "images": globalAnswerObj.seenImages,
+       "score": globalAnswerObj.score,
+       "finished": true,
+       "result": 'You won, the answer was "' + globalAnswerObj.answer + '"',
+       "correctGuesses": globalCorrectGuesses })*/
+    console.log('CORRECT HISTORY',globalCorrectGuesses)
+    resetGlobalObj(false)
+    res.redirect('/home')
+  }
+  else {
     // wrong, new image
     console.log('---wrong')
     //handle if this is the 5th wrong guess
     if (globalAnswerObj.activeImageIndex === 4) {
       // you failed --- what do we wana do here?
       console.log('WRONG x 5')
-      res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score, finished: true, result: 'You lose, the answer was "' + globalAnswerObj + '"'})
-      resetGlobalObj()
+      res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score, finished: true, result: 'You lose, the answer was "' + globalAnswerObj.answer + '"'})
+      console.log(globalAnswerObj)
+      globalCorrectGuesses = []
+      resetGlobalObj(true)
       return
     }
     globalAnswerObj.seenImages.push(globalImages[globalAnswerObj.activeImageIndex])
     globalAnswerObj.activeImageIndex++
     renderPageAfterGuess(null, res)
   }
-
-  console.log(globalAnswerObj)
 });
 
 function renderPageAfterGuess (err, res) {
@@ -90,14 +99,20 @@ function renderNewAnswer (err, res) {
   res.render('home', {"mainImage": globalImages[globalAnswerObj.activeImageIndex], "images": globalAnswerObj.seenImages, "score": globalAnswerObj.score})
 }
 
-function resetGlobalObj () {
+function resetGlobalObj (resetScore) {
+  var totalScore = globalAnswerObj.score
   globalAnswerObj = {
-    score: 0,
     answer: '',
     activeImageIndex: 0,
     seenImages: [],  // what is sent to fill four boxes}
     finished: false,
     result: ''
+  }
+  if (resetScore) {
+    globalAnswerObj.score = 0
+  }
+  else {
+    globalAnswerObj.score = totalScore
   }
   globalImages = []
 }
