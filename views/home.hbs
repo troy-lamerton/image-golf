@@ -4,14 +4,17 @@
 <div id = "container">
 
 	<div id="heading">
-		<div id = "h1">Welcome to...</div>
-		<div id = "title">Image Golf!</div>
-		<div id = "h3">All the fun of real golf without the swearing!</div>
+		<div id = "h1">The Royal & Ancient Coding Club of Cuba Street presents...</div>
+		<div id = "title">IMAGE GOLF</div>
+		<div id = "h3">Like real golf! But without the suffering.</div>
 	</div>
-
+{{#if this.finished}}
+		<div id="result"> {{this.result}}</div>
+{{else}}
 	<div id="mainImage">
 		<img src = "{{this.mainImage}}">
 	</div>
+{{/if}}
 
 	<div id="score">
 	  <h2> Your Score is: {{this.score}} </h2>
@@ -23,6 +26,7 @@
 	    <input type="submit" name="submit" value="Go" id="go"/>
 	  </p>
 	</form>
+
 
 	<div id = "previous">
 		{{#each images}}
