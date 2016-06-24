@@ -11,14 +11,20 @@
 {{#if this.finished}}
 		<div id="result"> {{this.result}}</div>
 {{else}}
-	<div id="mainImage">
-		<img src = "{{this.mainImage}}">
+	<div id = "main">
+		<div id="score">
+	  	<h2> Your score is: {{this.score}} </h2>
+		</div>
+		<div id="mainImage">
+			<img src = "{{this.mainImage}}">
+		</div>
+		<div id="pastScores">
+			<!-- past scores in here -->
+		</div>
 	</div>
 {{/if}}
 
-	<div id="score">
-	  <h2> Your Score is: {{this.score}} </h2>
-	</div>
+
 
 	<form class = "next_guess" id="next_guess" action="/home" accept-charset="UTF-8" method="post">
 	  <p class = "next_guess">
